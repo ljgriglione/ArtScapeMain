@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		929353652D4AD0F500781A93 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929353642D4AD0F500781A93 /* LocationManager.swift */; };
+		929353692D4C146B00781A93 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929353682D4C146500781A93 /* DatabaseManager.swift */; };
 		92C1F5C12C2C88D2004B7A12 /* StreetArtMainApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C1F5C02C2C88D2004B7A12 /* StreetArtMainApp.swift */; };
 		92C1F5C32C2C88D2004B7A12 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92C1F5C22C2C88D2004B7A12 /* ContentView.swift */; };
 		92C1F5C52C2C88D4004B7A12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92C1F5C42C2C88D4004B7A12 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		929353642D4AD0F500781A93 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		929353682D4C146500781A93 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		92C1F5BD2C2C88D2004B7A12 /* StreetArtMain.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreetArtMain.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92C1F5C02C2C88D2004B7A12 /* StreetArtMainApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreetArtMainApp.swift; sourceTree = "<group>"; };
 		92C1F5C22C2C88D2004B7A12 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				92C1F5C02C2C88D2004B7A12 /* StreetArtMainApp.swift */,
 				92C1F5EB2C2C8921004B7A12 /* ArtData.swift */,
 				92C1F5C22C2C88D2004B7A12 /* ContentView.swift */,
+				929353682D4C146500781A93 /* DatabaseManager.swift */,
 				929353642D4AD0F500781A93 /* LocationManager.swift */,
 				92C1F5ED2C2C8F7C004B7A12 /* MainScreen.storyboard */,
 				92C1F5C42C2C88D4004B7A12 /* Assets.xcassets */,
@@ -271,6 +274,7 @@
 			files = (
 				929353652D4AD0F500781A93 /* LocationManager.swift in Sources */,
 				92C1F5C32C2C88D2004B7A12 /* ContentView.swift in Sources */,
+				929353692D4C146B00781A93 /* DatabaseManager.swift in Sources */,
 				92C1F5EC2C2C8921004B7A12 /* ArtData.swift in Sources */,
 				92C1F5C12C2C88D2004B7A12 /* StreetArtMainApp.swift in Sources */,
 			);

@@ -75,6 +75,21 @@ struct ContentView: View {
                             .background(Color.black)
                             .cornerRadius(10)
                             }
+                        Button("Reset Data") {
+                        Task {
+                            do {
+                            try await
+                                DatabaseManager.resetDatabase(context: context)
+                            } catch {
+                            print("Failed to reset database: \(error.localizedDescription)")
+                            }
+                    }
+                }
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                        .offset(y: 100)
                     }
                 }
            
@@ -107,16 +122,28 @@ struct AddArtSheet: View {
     @State private var name: String = ""
     @State private var lat: Double = 0
     @State private var long: Double = 0
-    
+    @State private var address: String = ""
+    @StateObject private var locationManager = LocationManager()
     
     var body: some View {
         NavigationStack {
             Form {
+                // Name feild
                 TextField("Art Work Name", text: $name)
-                TextField("Latitude", value: $lat, formatter: numberFormatter)
-                                .keyboardType(.decimalPad)
-                TextField("Longitude", value: $long, formatter: numberFormatter)
-                                .keyboardType(.decimalPad)
+                
+                // Address input field
+                TextField("Enter Address", text: $address)
+                    .autocorrectionDisabled()
+                    .textInputAutocapitalization(.never)
+                    .onChange(of: address) { newValue in
+                        locationManager.geocodeAddress(newValue) // Auto-convert address
+                                    }
+
+                // Show coordinates if found
+                if let coordinate = locationManager.geocodedLocation {
+                Text("Latitude: \(coordinate.latitude)")
+                Text("Longitude: \(coordinate.longitude)")
+                                }
                 
             }
                     .navigationTitle("New ArtWork")
@@ -125,12 +152,16 @@ struct AddArtSheet: View {
                         ToolbarItemGroup (placement: .topBarLeading) { Button("Cancel") { dismiss()
                         }
                         }
-                        ToolbarItemGroup (placement: .topBarTrailing) {
-                            Button("Save") {
-                            let hold = ArtData(name: name, long: long, lat: lat)
-                                context.insert(hold)
-                                dismiss()
-                        }
+                ToolbarItemGroup (placement: .topBarTrailing) {
+                Button("Save Artwork") {
+                if let coordinate = locationManager.geocodedLocation {
+                    let newArt = ArtData(name: name, address: address, long: coordinate.longitude, lat: coordinate.latitude)
+                    context.insert(newArt)
+                    dismiss()
+                    }
+                }
+            .disabled(!locationManager.isValidAddress) // Only enabled if address is valid
+                                       
                         }
                     
             }
@@ -175,15 +206,13 @@ struct UpdateArtSheet: View {
 struct MapView: View {
     @Environment(\.modelContext) private var context
     @Query var aData: [ArtData]
-    @State var camera: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude:  41.8825, longitude:  -87.6233), span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)))
+    @State var camera: MapCameraPosition = .region(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude:  41.8825, longitude:  -87.6233), span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)))
     
         var body: some View {
             Map(position: $camera){
                 
-                    
-                    
                 ForEach(aData) { item in
-                    var cord = CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)
+                    let cord = CLLocationCoordinate2D(latitude: item.lat, longitude: item.long)
                     Marker(item.name, coordinate: cord)
                     
                 }

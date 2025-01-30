@@ -9,13 +9,13 @@ import Foundation
 import SwiftData
 
 @Model
-class ArtData{
-    // My struct of data
-    @Attribute(.unique) var name: String
+class ArtData {
+    @Attribute(.unique)
+    var name: String
     var long: Double
     var lat: Double
     
-    init(name: String, long:Double, lat:Double) {
+    init(name: String, address: String, long: Double, lat: Double) {
         self.name = name
         self.long = long
         self.lat = lat
